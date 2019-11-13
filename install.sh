@@ -30,7 +30,7 @@ echo "Setting up "${HOSTNAME}" as hostname."
 # Change the Linux hostname
 ssh root@${HOSTNAME} "hostname ${HOSTNAME} && hostname > /dev/null"
 
-echo "Saving into path: /etc/hostname"
+echo "Editing file: /etc/hostname"
 # Change hostname permanently on a Debian/Ubuntu Linux
 # sed | stream editor for filtering and transforming text
 # -i[SUFFIX] | edit files in place
@@ -39,4 +39,9 @@ echo "Saving into path: /etc/hostname"
 # Simply put, we're removing the first line on specified file
 ssh root@${HOSTNAME} "sed -i -e '1d' /etc/hostname"
 # Now replace it with something else
+echo "Saving..."
 ssh root@${HOSTNAME} "echo '${HOSTNAME}' > /etc/hostname"
+
+# Copy iRedMail folder
+echo 'Copying iRedMail folder...'
+rsync -r iRedMail-0.9.9 root@${HOSTNAME}:/root > /dev/null
