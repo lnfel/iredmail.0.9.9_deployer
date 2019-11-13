@@ -23,5 +23,20 @@ echo "Working on "${HOSTNAME}
 # Update system
 #ssh root@${HOSTNAME} "mkdir test" > /dev/null
 echo "Performing system update."
-ssh root@${HOSTNAME} "apt-get install && apt-get update"
+ssh root@${HOSTNAME} "apt-get install && apt-get update > /dev/null"
 
+# Change hostname value
+echo "Setting up "${HOSTNAME}" as hostname."
+# Change the Linux hostname
+ssh root@${HOSTNAME} "hostname ${HOSTNAME} && hostname > /dev/null"
+
+echo "Saving into path: /etc/hostname"
+# Change hostname permanently on a Debian/Ubuntu Linux
+# sed | stream editor for filtering and transforming text
+# -i[SUFFIX] | edit files in place
+# -e script | add the script to the commands to be executed
+# 1d | will remove the first line of the input file
+# Simply put, we're removing the first line on specified file
+ssh root@${HOSTNAME} "sed -i -e '1d' /etc/hostname"
+# Now replace it with something else
+ssh root@${HOSTNAME} "echo '${HOSTNAME}' > /etc/hostname"
