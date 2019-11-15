@@ -10,6 +10,12 @@
 # Ex. ./install.sh sushikick.tk
 # =====================================
 
+# font color variable
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+# Script start
 HOSTNAME=$1
 echo "Working on "${HOSTNAME}
 
@@ -43,14 +49,21 @@ echo "Saving..."
 ssh root@${HOSTNAME} "echo '${HOSTNAME}' > /etc/hostname"
 
 # Copy iRedMail folder
-echo 'Copying iRedMail folder...'
+echo 'Copying iRedMail folder'
 rsync -r iRedMail-0.9.9 root@${HOSTNAME}:/root > /dev/null
 
 # Move our config defaults into target hostname's iRedMail folder
-echo "Setting up default config variables..."
+echo "Setting up default config variables"
 # Create a copy of config
 cp $PWD/iRedMail-0.9.9/config $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
 #sed -i s/univposts.com/${HOSTNAME}/g $PWD/iRedMail/${HOSTNAME}_config
 # Move config copy to target host server then delete duplicate
-rsync -r $PWD/iRedMail-0.9.9/${HOSTNAME}_config root@${HOSTNAME}:/root/iRedMail-0.9.9/config > /dev/null
-rm $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
+rsync -r $PWD/iRedMail-0.9.9/${HOSTNAME}_config root@${HOSTNAME}:/root/iRedMail-0.9.9/config
+if [ "$?" -eq "0" ]
+then
+	echo "Deleting duplicate config file"
+  rm $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
+  echo -e "${GREEN}Done setting up default config${NC}"
+else
+  echo "config file was not transfered to target host directory"
+fi
