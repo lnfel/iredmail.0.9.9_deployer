@@ -45,3 +45,12 @@ ssh root@${HOSTNAME} "echo '${HOSTNAME}' > /etc/hostname"
 # Copy iRedMail folder
 echo 'Copying iRedMail folder...'
 rsync -r iRedMail-0.9.9 root@${HOSTNAME}:/root > /dev/null
+
+# Move our config defaults into target hostname's iRedMail folder
+echo "Setting up default config variables..."
+# Create a copy of config
+cp $PWD/iRedMail-0.9.9/config $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
+#sed -i s/univposts.com/${HOSTNAME}/g $PWD/iRedMail/${HOSTNAME}_config
+# Move config copy to target host server then delete duplicate
+rsync -r $PWD/iRedMail-0.9.9/${HOSTNAME}_config root@${HOSTNAME}:/root/iRedMail-0.9.9/config
+rm $PWD/iRedMail-0.9.9/${HOSTNAME}_config
