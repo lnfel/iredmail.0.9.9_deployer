@@ -52,5 +52,5 @@ echo "Setting up default config variables..."
 cp $PWD/iRedMail-0.9.9/config $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
 #sed -i s/univposts.com/${HOSTNAME}/g $PWD/iRedMail/${HOSTNAME}_config
 # Move config copy to target host server then delete duplicate
-rsync -r $PWD/iRedMail-0.9.9/${HOSTNAME}_config root@${HOSTNAME}:/root/iRedMail-0.9.9/config
-rm $PWD/iRedMail-0.9.9/${HOSTNAME}_config
+rsync -r $PWD/iRedMail-0.9.9/${HOSTNAME}_config root@${HOSTNAME}:/root/iRedMail-0.9.9/config > /dev/null
+rm $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
