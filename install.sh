@@ -62,8 +62,8 @@ rsync -r $PWD/iRedMail-0.9.9/${HOSTNAME}_config root@${HOSTNAME}:/root/iRedMail-
 if [ "$?" -eq "0" ]
 then
 	echo "Deleting duplicate config file"
-  rm $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
-  echo -e "${GREEN}Done setting up default config${NC}"
+	rm $PWD/iRedMail-0.9.9/${HOSTNAME}_config > /dev/null
+	echo "${GREEN}Done setting up default config${NC}"
 else
   echo "config file was not transfered to target host directory"
 fi
@@ -75,5 +75,6 @@ fi
  # https://docs.iredmail.org/unattended.iredmail.installation.html
 
  # Reboot server after installation
+ echo "${GREEN}Done installing iRedMail!${NC}"
  echo "Rebooting server"
  ssh root@${HOSTNAME} "sudo reboot"
