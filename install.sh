@@ -26,6 +26,41 @@ echo "Working on "${HOSTNAME}
 #  printf '%s\n' "uh-oh, not on foo"
 #fi
 
+# Install sshpass
+
+# Before running the script make sure to create the file:
+# /var/tmp/ssh-pass.sh
+# inside that file, input:
+# #!/bin/sh                                                                    
+# echo "$PASS"
+# below is the automated process
+# Create the file
+#touch /var/tmp/ssh-pass.sh
+# Add text to specific line
+#sed -i '1i #\!/usr/bin/expect' /var/tmp/ssh-pass.sh
+#sed -i '2i \spawn ssh-copy-id -o StrictHostKeyChecking=no $argv' /var/tmp/ssh-pass.sh
+#sed -i 2d spawn ssh-copy-id -o StrictHostKeyChecking=no $argv /var/tmp/ssh-pass.sh
+#sed -i '3i expect "password:"' /var/tmp/ssh-pass.sh
+#sed -i '4i send ""' /var/tmp/ssh-pass.sh
+#sed -i '5i expect eof' /var/tmp/ssh-pass.sh
+
+#chmod 755 /var/tmp/ssh-pass.sh
+
+#sed -i '1i #\!/bin/sh' /var/tmp/ssh-pass.sh
+#sed -i '2i echo "smtp123"' /var/tmp/ssh-pass.sh
+
+# Generate ssh keygen
+ssh-keygen -f /root/.ssh/id_rsa -t rsa -b 2048 -N ''
+# Copy the generated key to target server
+#PASS="$1" SSH_ASKPASS="/var/tmp/ssh-pass.sh" setsid -w ssh-copy-id -i /root/.ssh/id_rsa "$2"@"$4" -p "$3"
+#PASS="smtp123" SSH_ASKPASS="/var/tmp/ssh-pass.sh" setsid -w ssh-copy-id -i /root/.ssh/id_rsa root@flashraven.tk -p "22"
+
+#/var/tmp/./ssh-pass.sh
+#sshpass -p "smtp123" ssh-copy-id -o StrictHostKeyChecking=no root@flashraven.tk
+#sshpass -f /var/tmp/sshpass ssh-copy-id -o StrictHostKeyChecking=no root@flashraven.tk
+ssh-copy-id root@flashraven.tk
+# ssh into the server to test the key
+
 # Update system
 #ssh root@${HOSTNAME} "mkdir test" > /dev/null
 echo "Performing system update."
