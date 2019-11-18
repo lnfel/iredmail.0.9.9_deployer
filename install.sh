@@ -67,3 +67,13 @@ then
 else
   echo "config file was not transfered to target host directory"
 fi
+
+ # Intall iRedMail
+ echo "Installing iRedMail-0.9.9..."
+ ssh root@${HOSTNAME} "cd /root/iRedMail/ && AUTO_USE_EXISTING_CONFIG_FILE=y AUTO_INSTALL_WITHOUT_CONFIRM=y AUTO_CLEANUP_REMOVE_SENDMAIL=y AUTO_CLEANUP_REMOVE_MOD_PYTHON=y AUTO_CLEANUP_REPLACE_FIREWALL_RULES=y AUTO_CLEANUP_RESTART_IPTABLES=y AUTO_CLEANUP_REPLACE_MYSQL_CONFIG=y AUTO_CLEANUP_RESTART_POSTFIX=n bash iRedMail.sh"
+ # More about above code through the online documentation:
+ # https://docs.iredmail.org/unattended.iredmail.installation.html
+
+ # Reboot server after installation
+ echo "Rebooting server"
+ ssh root@${HOSTNAME} "sudo reboot"
