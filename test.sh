@@ -4,6 +4,12 @@
 # Written by Dale Ryan Aldover
 # © 2019
 # =====================================
+# IMPORTANT!
+# after cloning or pulling the repo
+# make sure to run chmod on the followin files:
+# install.sh, multi-deploy.sh, test.sh, args
+# Ex. chmod 755 install.sh
+
 # execute this file to tesh multiple-deploy.sh
 # ./test.sh "$(< file.txt)"
 # Where file.txt contains the target domains
@@ -24,16 +30,16 @@ echo "test.sh executed"
 # Assign the arguments into an array variable
 array="$@"
 #for domain in ${1+"$@"}
+echo "Domains found:"
+echo "${GREEN}"${array}${NC}
 for domain in $array
 do
-	echo "Domains found:"
-	echo "${GREEN}"${var}${NC}
-	echo $args
+	echo $domain
 	# Use ping's "count" option (-c COUNT)
 	# to send exactly COUNT pings and then terminate automatically.
 	# Use ping's "deadline" option (-w DEADLINE)
 	# to run for exactly DEADLINE seconds and then terminate automatically.
-	ping -c 4 -w 7 $args
+	ping -c 4 -w 7 $domain
 done
 
 echo "Done!"

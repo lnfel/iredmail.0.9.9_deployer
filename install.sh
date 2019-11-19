@@ -4,6 +4,12 @@
 # Written by Dale Ryan Aldover
 # © 2019
 # =====================================
+# IMPORTANT!
+# after cloning or pulling the repo
+# make sure to run chmod on the followin files:
+# install.sh, multi-deploy.sh, test.sh, args
+# Ex. chmod 755 install.sh
+
 # How to use? Simply run the command in
 # the following format:
 # ./install.sh domainname.com
