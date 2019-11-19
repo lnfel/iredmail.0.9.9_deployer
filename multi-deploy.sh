@@ -12,7 +12,7 @@
 
 # This time we will deploy iRedmail
 # to multiple servers using:
-# ./install.sh "$(< file.txt)"
+# ./multi-deploy.sh "$(< file.txt)"
 # Where file.txt contains the target domains
 # using the format below:
 # domain1.tk
@@ -29,9 +29,12 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 # Script start
-for domain in "$@"
+# Assign the arguments into an array variable
+array="$@"
+
+for domain in $array
 do
-	HOSTNAME="$@"
+	HOSTNAME=$domain
 	echo "${GREEN}Working on "${HOSTNAME}${NC}
 
 	# Generate ssh keygen
