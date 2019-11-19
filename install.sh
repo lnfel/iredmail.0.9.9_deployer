@@ -10,7 +10,7 @@
 # Ex. ./install.sh sushikick.tk
 # =====================================
 
-# font color variable
+# Font color variable
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
@@ -78,10 +78,12 @@ echo "Editing file: /etc/hostname"
 # -e script | add the script to the commands to be executed
 # 1d | will remove the first line of the input file
 # Simply put, we're removing the first line on specified file
-ssh root@${HOSTNAME} "sed -i -e '1d' /etc/hostname"
+#ssh root@${HOSTNAME} "sed -i -e '1d' /etc/hostname"
+ssh root@${HOSTNAME} "sed -i '1d' /etc/hostname"
 # Now replace it with something else
 echo "Saving..."
-ssh root@${HOSTNAME} "echo '${HOSTNAME}' > /etc/hostname"
+#ssh root@${HOSTNAME} "echo '${HOSTNAME}' > /etc/hostname"
+ssh root@${HOSTNAME} 'sed -i "1i ${HOSTNAME}"' /etc/hostname
 
 # Copy iRedMail folder
 echo 'Copying iRedMail folder'
@@ -103,13 +105,13 @@ else
   echo "config file was not transfered to target host directory"
 fi
 
- # Intall iRedMail
+ # Install iRedMail-0.9.9
  echo "Installing iRedMail-0.9.9..."
  ssh root@${HOSTNAME} "cd /root/iRedMail-0.9.9/ && AUTO_USE_EXISTING_CONFIG_FILE=y AUTO_INSTALL_WITHOUT_CONFIRM=y AUTO_CLEANUP_REMOVE_SENDMAIL=y AUTO_CLEANUP_REMOVE_MOD_PYTHON=y AUTO_CLEANUP_REPLACE_FIREWALL_RULES=n AUTO_CLEANUP_RESTART_IPTABLES=n AUTO_CLEANUP_REPLACE_MYSQL_CONFIG=y AUTO_CLEANUP_RESTART_POSTFIX=n bash iRedMail.sh"
  # More about above code through the online documentation:
  # https://docs.iredmail.org/unattended.iredmail.installation.html
 
  # Reboot server after installation
- echo "${GREEN}Done installing iRedMail!${NC}"
+ echo "${GREEN}Done installing iRedMail on ${HOSTNAME}!${NC}"
  echo "Rebooting server"
  ssh root@${HOSTNAME} "sudo reboot"
