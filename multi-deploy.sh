@@ -47,7 +47,7 @@ do
 	ssh-keygen -f /root/.ssh/id_rsa -t rsa -b 2048 -N ''
 	# Copy rsa keys to target domain
 	echo "${GREEN}Copying rsa keys, please press Enter.${NC}"
-	ssh-copy-id root@flashraven.tk
+	ssh-copy-id root@${HOSTNAME}
 
 	# Update system
 	echo "${GREEN}Performing system update.${NC}"
